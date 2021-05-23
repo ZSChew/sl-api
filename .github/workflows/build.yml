@@ -6,9 +6,9 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v1
-      - run: composer install --prefer-dist --no-ansi --no-interaction --no-progress --no-script
+      - run: composer install
       - run: cp .env.example .env
       - run: php artisan cache:clear
       - run: php artisan config:clear
       - run: php artisan key:generate
-      - run: ./vendor/bin/phpunit --coverage-text --colors=never
+      - run: ./vendor/bin/phpunit
