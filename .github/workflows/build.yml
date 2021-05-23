@@ -4,6 +4,19 @@ on: push
 jobs:
   build:
     runs-on: ubuntu-latest
+
+    services:
+      mariadb:
+        image: mariadb:latest
+        ports:
+          - 3306
+        env:
+          MYSQL_USER: user
+          MYSQL_PASSWORD: password
+          MYSQL_DATABASE: laravel
+          MYSQL_ROOT_PASSWORD: password
+        options: --health-cmd="mysqladmin ping" --health-interval=5s --health-timeout=2s --health-retries=3
+        
     steps:
       - uses: actions/checkout@v1
       - run: composer install
@@ -11,4 +24,5 @@ jobs:
       - run: php artisan cache:clear
       - run: php artisan config:clear
       - run: php artisan key:generate
+      - run: php artisan migrate
       - run: ./vendor/bin/phpunit
