@@ -1,0 +1,16 @@
+name: Secret Lab Api
+on: push
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v1
+      - run: composer install --prefer-dist --no-ansi --no-interaction --no-progress --no-script
+      - name: Configure application
+        run: |
+        cp .env.example .env
+        php artisan cache:clear
+        php artisan config:clear
+        php artisan key:generate
+      - run: ./vendor/bin/phpunit --coverage-text --colors=never
