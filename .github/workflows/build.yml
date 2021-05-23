@@ -7,7 +7,6 @@ jobs:
     steps:
       - uses: actions/checkout@v1
       - run: composer install --prefer-dist --no-ansi --no-interaction --no-progress --no-script
-      - name: Configure application
       - run: cp .env.example .env
       - run: php artisan cache:clear
       - run: php artisan config:clear
