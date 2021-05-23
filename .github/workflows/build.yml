@@ -1,4 +1,4 @@
-name: Secret Lab Api
+name: SL Api
 on: push
 
 jobs:
